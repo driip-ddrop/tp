@@ -5,6 +5,11 @@ import static java.util.Objects.requireNonNull;
 public class Remark {
     public final String value;
 
+    /**
+     * Creates an AddCommand to add the specified {@code Person}
+     *
+     * @param remark the user inputs
+     */
     public Remark(String remark) {
         requireNonNull(remark);
         value = remark;
