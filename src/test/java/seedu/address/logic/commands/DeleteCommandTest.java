@@ -71,7 +71,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validModuleCodeUnfilteredList_Success() {
+    public void execute_validModuleCodeUnfilteredList_success() {
         Person person1 = model.getFilteredPersonList().get(INDEX_HENRY.getZeroBased());
         Person person2 = model.getFilteredPersonList().get(INDEX_ISAAC.getZeroBased());
         Person newPerson2 = new PersonBuilder(person2).withModuleCodes(VALID_MODULE_CODE_CS2106).build();

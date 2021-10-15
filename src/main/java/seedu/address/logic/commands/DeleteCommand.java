@@ -88,7 +88,7 @@ public class DeleteCommand extends Command {
         if (predicate != Model.PREDICATE_SHOW_ALL_PERSONS) {
             successMessage = deleteRelatedPersonByModuleCode(model);
         } else if (targetIndex.getZeroBased() >= sizeOfPersonList) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } else if (targetIndex.getZeroBased() > endIndex.getZeroBased()
                 || endIndex.getZeroBased() >= sizeOfPersonList) {
             throw new CommandException(Messages.MESSAGE_INVALID_RANGE);
@@ -123,11 +123,12 @@ public class DeleteCommand extends Command {
             model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
             throw new CommandException(MESSAGE_NO_SUCH_MODULE_CODE);
         }
-
-        int first = 0, last = filteredList.size() - 1;
-        int numberOfDeletedPersons = 0, numberOfEditedPersons = 0;
-        StringBuilder deletedPersons = new StringBuilder(), editedPersons = new StringBuilder();
-
+        int first = 0;
+        int last = filteredList.size() - 1;
+        int numberOfDeletedPersons = 0;
+        int numberOfEditedPersons = 0;
+        StringBuilder deletedPersons = new StringBuilder();
+        StringBuilder editedPersons = new StringBuilder();
         while (last >= first) {
             Person personToCheck = filteredList.get(last);
             if (personToCheck.getModuleCodes().size() > 1) {
@@ -135,9 +136,8 @@ public class DeleteCommand extends Command {
                 editedPersons.insert(0, String.format(MESSAGE_DELETE_SUCCESS, personToCheck));
                 numberOfEditedPersons++;
             } else {
-                Person personToDelete = filteredList.get(last);
-                model.deletePerson(personToDelete);
-                deletedPersons.insert(0, String.format(MESSAGE_DELETE_SUCCESS, personToDelete));
+                model.deletePerson(filteredList.get(last));
+                deletedPersons.insert(0, String.format(MESSAGE_DELETE_SUCCESS, filteredList.get(last)));
                 numberOfDeletedPersons++;
             }
             last--;
