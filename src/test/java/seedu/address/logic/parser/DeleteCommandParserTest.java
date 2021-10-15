@@ -60,7 +60,13 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_emptyModuleCode_throwsParseException() {
-        assertParseFailure(parser, "m/",
+        assertParseFailure(parser, " m/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_multipleModuleCode_throwsParseException() {
+        assertParseFailure(parser, " m/CS2040S m/CS2030S",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_DELETE_BY_MODULE_USAGE));
     }
 }

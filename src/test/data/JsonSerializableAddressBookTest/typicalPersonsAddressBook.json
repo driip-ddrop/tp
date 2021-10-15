@@ -56,5 +56,21 @@
     "remark" : "",
     "moduleCodes": [ "CS2030S", "CS2040" ],
     "tagged" : [ ]
+  }, {
+    "name" : "Henry Davis",
+    "phone" : "94351853",
+    "email" : "henry@example.com",
+    "teleHandle": "",
+    "remark" : "He likes Pizza.",
+    "moduleCodes": [ "CS2100" ],
+    "tagged" : [ "local" ]
+  },  {
+    "name" : "Isaac Tan",
+    "phone" : "94951253",
+    "email" : "isaaac@example.com",
+    "teleHandle": "",
+    "remark" : "He likes basketball",
+    "moduleCodes": [ "CS2100", "CS2106" ],
+    "tagged" : [ "local" ]
   } ]
 }

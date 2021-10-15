@@ -56,6 +56,21 @@ public class TypicalPersons {
             .withRemark(VALID_REMARK_BOB)
             .withTags(VALID_TAG_INTERNATIONAL, VALID_TAG_LOCAL).build();
 
+    //Manually added for DeleteCommandTest
+    public static final Person HENRY = new PersonBuilder().withName("Henry Davis")
+            .withEmail("henry@example.com")
+            .withPhone("94351853")
+            .withRemark("He likes Pizza.")
+            .withModuleCodes("CS2100")
+            .withTags("local").build();
+
+    public static final Person ISAAC = new PersonBuilder().withName("Isaac Tan")
+            .withEmail("isaaac@example.com")
+            .withPhone("94951253")
+            .withRemark("He likes basketball")
+            .withModuleCodes("CS2100", "CS2106")
+            .withTags("local").build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
@@ -72,6 +87,6 @@ public class TypicalPersons {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HENRY, ISAAC));
     }
 }

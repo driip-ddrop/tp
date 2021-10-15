@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELE_HANDLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_TELE_HANDLE_BOB = "@bobgoh";
     public static final String VALID_MODULE_CODE_CS2030S = "CS2030S";
     public static final String VALID_MODULE_CODE_CS2040 = "CS2040";
+    public static final String VALID_MODULE_CODE_CS2100 = "CS2100";
+    public static final String VALID_MODULE_CODE_CS2106 = "CS2106";
     public static final String VALID_TAG_LOCAL = "local";
     public static final String VALID_TAG_INTERNATIONAL = "international";
 
