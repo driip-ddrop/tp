@@ -29,8 +29,14 @@ public class DeleteCommand extends Command {
             + "Example: delete 1 , delete 1-3 , delete "
             + PREFIX_MODULE_CODE + "CS2040S";
 
+    public static final String MESSAGE_DELETE_BY_MODULE_USAGE = "delete: "
+            + "Delete only accepts 1 batch delete by Module Code\n"
+            + "Example: delete " + PREFIX_MODULE_CODE + "CS2040S";
+
     public static final String MESSAGE_NUMBER_DELETED_PERSON = "%d Deleted Persons: \n";
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "%1$s \n";
+    public static final String MESSAGE_NUMBER_EDITED_PERSON = "%d Edited Persons: \n";
+    public static final String MESSAGE_DELETE_SUCCESS = "%1$s \n";
+    public static final String MESSAGE_NO_SUCH_MODULE_CODE = "No such existing Module Code";
 
     private final Index targetIndex;
     private final Index endIndex;
@@ -81,14 +87,12 @@ public class DeleteCommand extends Command {
 
         if (predicate != Model.PREDICATE_SHOW_ALL_PERSONS) {
             successMessage = deleteRelatedPersonByModuleCode(model);
-        } else {
-            if (targetIndex.getZeroBased() >= sizeOfPersonList) {
+        } else if (targetIndex.getZeroBased() >= sizeOfPersonList) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            if (targetIndex.getZeroBased() > endIndex.getZeroBased() || endIndex.getZeroBased() >= sizeOfPersonList) {
-                throw new CommandException(Messages.MESSAGE_INVALID_RANGE);
-            }
+        } else if (targetIndex.getZeroBased() > endIndex.getZeroBased()
+                || endIndex.getZeroBased() >= sizeOfPersonList) {
+            throw new CommandException(Messages.MESSAGE_INVALID_RANGE);
+        } else {
             successMessage = deleteAll(model);
         }
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
@@ -105,34 +109,41 @@ public class DeleteCommand extends Command {
         while (last >= first) {
             Person personToDelete = lastShownList.get(last);
             model.deletePerson(personToDelete);
-            deletedPersons.insert(0, String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+            deletedPersons.insert(0, String.format(MESSAGE_DELETE_SUCCESS, personToDelete));
             numberOfDeletedPersons++;
             last--;
         }
         return String.format(MESSAGE_NUMBER_DELETED_PERSON, numberOfDeletedPersons) + deletedPersons;
     }
 
-    private String deleteRelatedPersonByModuleCode(Model model) {
+    private String deleteRelatedPersonByModuleCode(Model model) throws CommandException {
         model.updateFilteredPersonList(predicate);
         List<Person> filteredList = model.getFilteredPersonList();
-        int first = 0;
-        int last = filteredList.size() - 1;
-        int numberOfDeletedPersons = 0;
-        StringBuilder deletedPersons = new StringBuilder();
+        if (filteredList.isEmpty()) {
+            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+            throw new CommandException(MESSAGE_NO_SUCH_MODULE_CODE);
+        }
+
+        int first = 0, last = filteredList.size() - 1;
+        int numberOfDeletedPersons = 0, numberOfEditedPersons = 0;
+        StringBuilder deletedPersons = new StringBuilder(), editedPersons = new StringBuilder();
 
         while (last >= first) {
             Person personToCheck = filteredList.get(last);
             if (personToCheck.getModuleCodes().size() > 1) {
                 deleteModuleCodeTag(personToCheck, model);
+                editedPersons.insert(0, String.format(MESSAGE_DELETE_SUCCESS, personToCheck));
+                numberOfEditedPersons++;
             } else {
                 Person personToDelete = filteredList.get(last);
                 model.deletePerson(personToDelete);
-                deletedPersons.insert(0, String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+                deletedPersons.insert(0, String.format(MESSAGE_DELETE_SUCCESS, personToDelete));
                 numberOfDeletedPersons++;
             }
             last--;
         }
-        return String.format(MESSAGE_NUMBER_DELETED_PERSON, numberOfDeletedPersons) + deletedPersons;
+        return String.format(MESSAGE_NUMBER_DELETED_PERSON, numberOfDeletedPersons) + deletedPersons
+                + String.format(MESSAGE_NUMBER_EDITED_PERSON, numberOfEditedPersons) + editedPersons;
     }
 
     private void deleteModuleCodeTag(Person person, Model model) {
