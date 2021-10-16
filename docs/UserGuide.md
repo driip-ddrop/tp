@@ -14,13 +14,11 @@ contHACKS is a **desktop app for managing contacts, optimized for use via a Comm
 
    * Find contacts by name / tag: [find](#find)
 
-   * Sort contacts: [sort](#sort)
-
    * Edit contact: [edit / update](#edit)
 
-   * Delete contact individually / in batches: [delete](#delete)
+   * Delete contact individually / in batches: [delete / del / rm](#delete)
 
-   * Clear all contacts: [clear](#clear)
+   * Clear all contacts: [clear / clr](#clear)
 
    * Add description to contact: [remark](#remark)
 
@@ -93,7 +91,7 @@ contHACKS is a **desktop app for managing contacts, optimized for use via a Comm
 
 ### Viewing help : `help` <a name="help"></a>
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 Format: `help`
 
@@ -140,18 +138,6 @@ Examples:
 
 ***
 
-### Sort contacts: `sort` <a name="sort"></a>
-
-Sorts the contacts such that contacts are arranged alphabetically after being grouped into modules (denoted by the `-m` flag) / in general alphabetical order (denoted by the `-a` flag).
-
-Format: `sort -m` / `sort -a`
-
-Examples:
-* `sort -m`
-* `sort -a`
-
-***
-
 ### Edit contact: `edit` <a name="edit"></a>
 
 Updates the information of a contact.
@@ -191,7 +177,7 @@ Examples:
 * `delete 2, 5` deletes the 2nd, 3rd, 4th and 5th contacts.
 * `delete b/CS2103T` deletes all the contacts from CS2103T.
 
-Command aliases: `del` `rm`
+Command aliases: `del` `del` `rm` 
 
 ***
 
@@ -199,7 +185,7 @@ Command aliases: `del` `rm`
 
 Purges **all** existing contacts from the address book. Use with caution.
 
-Format: `clear`
+Format: `clear` `clr`
 
 ***
 
@@ -223,17 +209,6 @@ Format: `tag {INDEX} {TAG}`
 Examples:
 * `tag Ben CS2103T`
 * `tag Mary Overseas`
-
-***
-
-### Add contact to favourite: `fav` <a name="fav"></a>
-
-Adds a contact to the favourite list.
-
-Format: `fav {INDEX}`
-
-Examples:
-* `fav 2`
 
 ***
 
@@ -268,11 +243,9 @@ If your changes to the data file makes its format invalid, contHACKS will discar
 | add               | `add n/{NAME} e/{EMAIL} m/{MODULE_CODE} [p/{PHONE}] [h/{TELEGRAM_HANDLE}] [t/{TAG}]`                      | `add n/Ben Davies e/ben123@gmail.com m/cs2103t`|
 | list / ls         | `list`                                                                                                    | `list`                    |
 | find              | `find {NAME}`/`find {TAG}`                                                                                | `find Ben`/`find CS2103T` |
-| sort              | `sort -m`/`sort -a`                                                                                       | `sort -m`/`sort -a`       |
 | edit / update     | `edit {INDEX} [n/{NAME}] [e/{EMAIL}] [m/{MODULE_CODE}] [p/{PHONE}] [h/{TELEGRAM_HANDLE}] [t/{TAG}]`       | `edit 1 p/91234567 e/ben321@gmail.com`|
-| delete / del / rm   | `delete {INDEX}`/`delete {INDEX_A}, {INDEX_B}`/`delete b/{TAG}`                                           | `delete 2`/`delete 2, 5`/`delete b/CS2103T`|
-| clear             | `clear`                                                                                                   | `clear`                    |
+| delete / del / rm | `delete {INDEX}`/`delete {INDEX_A}, {INDEX_B}`/`delete b/{TAG}`                                           | `delete 2`/`delete 2, 5`/`delete b/CS2103T`|
+| clear / clr       | `clear`                                                                                                   | `clear`                    |
 | remark            | `remark {INDEX} {DESCRIPTION}`                                                                            | `remark 2 absent`          |
 | tag               | `tag {INDEX} {TAG}`                                                                                       | `tag 2 overseas`           |
-| fav               | `fav {INDEX}`                                                                                             | `fav 2`                    |
 | exit / quit       | `exit`                                                                                                    | `exit`                     |
